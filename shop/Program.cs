@@ -60,8 +60,6 @@
 
 class Seller : Human
 {
-    private List<Product> _products = new List<Product>();
-
     public Seller(string name) : base(name)
     {
         Random random = new Random();
@@ -89,7 +87,9 @@ class Seller : Human
             }
         }
         else
-            ErrorMessage();
+        {
+            ShowErrorMessage();
+        }
     }
 
     public void ShowInfo()
@@ -121,10 +121,14 @@ class Seller : Human
                 Console.WriteLine("Товар куплен!");
             }
             else
-                ErrorMessage("Нехватает денег для покупки!");
+            {
+                ShowErrorMessage("Нехватает денег для покупки!");
+            }
         }
         else
-            ErrorMessage("Такого товара нет!");
+        {
+            ShowErrorMessage("Такого товара нет!");
+        }
     }
 
     private bool TryGetProduct(out Product product, string nameProduct)
@@ -142,7 +146,7 @@ class Seller : Human
         return false;
     }
 
-    private void ErrorMessage(string message = "Еда закончилась!")
+    private void ShowErrorMessage(string message = "Еда закончилась!")
     {
         ConsoleColor color = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Red;
@@ -153,8 +157,6 @@ class Seller : Human
 
 class Player : Human
 {
-    private List<Product> _inventoryOfProduct = new List<Product>();
-
     public Player(string name) : base(name)
     {
     }
@@ -163,21 +165,23 @@ class Player : Human
     {
         Console.Clear();
 
-        if (_inventoryOfProduct.Count > 0)
+        if (_Products.Count > 0)
         {
-            foreach (var product in _inventoryOfProduct)
+            foreach (var product in _Products)
             {
                 product.ShowInfo();
             }
         }
         else
-            ErrorMessage();
+        {
+            ShowErrorMessage();
+        }
     }
 
     public void TakeProduct(Product product)
     {
         Money -= product.Price;
-        _inventoryOfProduct.Add(product);
+        _Products.Add(product);
     }
 
     public void ShowInfo()
@@ -185,7 +189,7 @@ class Player : Human
         Console.WriteLine($"Игрок: {Name}\nВсего денег: {Money}");
     }
 
-    private void ErrorMessage(string message = "Инвентарь пуст!")
+    private void ShowErrorMessage(string message = "Инвентарь пуст!")
     {
         ConsoleColor color = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Red;
@@ -196,6 +200,7 @@ class Player : Human
 
 abstract class Human
 {
+    protected List<Product> _Products = new List<Product>();
     public string Name { get; protected set; }
     public int Money { get; protected set; }
 
@@ -212,7 +217,7 @@ abstract class Human
     public abstract void ShowInfoProduct();
 }
 
-abstract class Product
+class Product
 {
     public string Name { get; protected set; }
     public int Price { get; protected set; }
