@@ -35,13 +35,13 @@
             switch (playerInput)
             {
                 case "1":
-                    seller.ShowInfoProduct();
+                    seller.ShowProduct();
                     break;
                 case "2":
                     seller.SellProduct(player);
                     break;
                 case "3":
-                    player.ShowInfoProduct();
+                    player.ShowProduct();
                     break;
                 case "4":
                     isWork = false;
@@ -75,21 +75,14 @@ class Seller : Human
         Products.Add(new Milk(random.Next(minimumPrice, maximumPrice)));
     }
 
-    public override void ShowInfoProduct()
+    public override void ShowProduct()
     {
         Console.Clear();
 
-        if (Products.Count > 0)
-        {
-            foreach (var product in Products)
-            {
-                product.ShowInfo();
-            }
-        }
-        else
-        {
+        if (Products.Count == 0)
             ShowErrorMessage();
-        }
+
+        base.ShowProduct();
     }
 
     public void ShowInfo()
@@ -161,21 +154,14 @@ class Player : Human
     {
     }
 
-    public override void ShowInfoProduct()
+    public override void ShowProduct()
     {
         Console.Clear();
 
-        if (Products.Count > 0)
-        {
-            foreach (var product in Products)
-            {
-                product.ShowInfo();
-            }
-        }
-        else
-        {
+        if (Products.Count == 0)
             ShowErrorMessage();
-        }
+
+        base.ShowProduct();
     }
 
     public void TakeProduct(Product product)
@@ -214,7 +200,16 @@ abstract class Human
         Money = random.Next(minimumMoney, maximumMoney);
     }
 
-    public abstract void ShowInfoProduct();
+    public virtual void ShowProduct()
+    {
+        if (Products.Count > 0)
+        {
+            foreach (var product in Products)
+            {
+                product.ShowInfo();
+            }
+        }
+    }
 }
 
 class Product
