@@ -66,22 +66,22 @@ class Seller : Human
         int minimumPrice = 40;
         int maximumPrice = 160;
 
-        _products.Add(new Apple(random.Next(minimumPrice, maximumPrice)));
-        _products.Add(new Pear(random.Next(minimumPrice, maximumPrice)));
-        _products.Add(new Bread(random.Next(minimumPrice, maximumPrice)));
-        _products.Add(new Fish(random.Next(minimumPrice, maximumPrice)));
-        _products.Add(new Potato(random.Next(minimumPrice, maximumPrice)));
-        _products.Add(new Meat(random.Next(minimumPrice, maximumPrice)));
-        _products.Add(new Milk(random.Next(minimumPrice, maximumPrice)));
+        _Products.Add(new Apple(random.Next(minimumPrice, maximumPrice)));
+        _Products.Add(new Pear(random.Next(minimumPrice, maximumPrice)));
+        _Products.Add(new Bread(random.Next(minimumPrice, maximumPrice)));
+        _Products.Add(new Fish(random.Next(minimumPrice, maximumPrice)));
+        _Products.Add(new Potato(random.Next(minimumPrice, maximumPrice)));
+        _Products.Add(new Meat(random.Next(minimumPrice, maximumPrice)));
+        _Products.Add(new Milk(random.Next(minimumPrice, maximumPrice)));
     }
 
     public override void ShowInfoProduct()
     {
         Console.Clear();
 
-        if (_products.Count > 0)
+        if (_Products.Count > 0)
         {
-            foreach (var product in _products)
+            foreach (var product in _Products)
             {
                 product.ShowInfo();
             }
@@ -114,7 +114,7 @@ class Seller : Human
             if (player.Money >= product.Price)
             {
                 Money += product.Price;
-                _products.Remove(product);
+                _Products.Remove(product);
 
                 player.TakeProduct(product);
 
@@ -135,7 +135,7 @@ class Seller : Human
     {
         product = null;
 
-        foreach (var product1 in _products)
+        foreach (var product1 in _Products)
         {
             if (product1.Name.ToLower() == nameProduct.ToLower())
             {
