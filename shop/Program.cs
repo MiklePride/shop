@@ -66,22 +66,22 @@ class Seller : Human
         int minimumPrice = 40;
         int maximumPrice = 160;
 
-        _Products.Add(new Apple(random.Next(minimumPrice, maximumPrice)));
-        _Products.Add(new Pear(random.Next(minimumPrice, maximumPrice)));
-        _Products.Add(new Bread(random.Next(minimumPrice, maximumPrice)));
-        _Products.Add(new Fish(random.Next(minimumPrice, maximumPrice)));
-        _Products.Add(new Potato(random.Next(minimumPrice, maximumPrice)));
-        _Products.Add(new Meat(random.Next(minimumPrice, maximumPrice)));
-        _Products.Add(new Milk(random.Next(minimumPrice, maximumPrice)));
+        Products.Add(new Apple(random.Next(minimumPrice, maximumPrice)));
+        Products.Add(new Pear(random.Next(minimumPrice, maximumPrice)));
+        Products.Add(new Bread(random.Next(minimumPrice, maximumPrice)));
+        Products.Add(new Fish(random.Next(minimumPrice, maximumPrice)));
+        Products.Add(new Potato(random.Next(minimumPrice, maximumPrice)));
+        Products.Add(new Meat(random.Next(minimumPrice, maximumPrice)));
+        Products.Add(new Milk(random.Next(minimumPrice, maximumPrice)));
     }
 
     public override void ShowInfoProduct()
     {
         Console.Clear();
 
-        if (_Products.Count > 0)
+        if (Products.Count > 0)
         {
-            foreach (var product in _Products)
+            foreach (var product in Products)
             {
                 product.ShowInfo();
             }
@@ -114,7 +114,7 @@ class Seller : Human
             if (player.Money >= product.Price)
             {
                 Money += product.Price;
-                _Products.Remove(product);
+                Products.Remove(product);
 
                 player.TakeProduct(product);
 
@@ -135,7 +135,7 @@ class Seller : Human
     {
         product = null;
 
-        foreach (var product1 in _Products)
+        foreach (var product1 in Products)
         {
             if (product1.Name.ToLower() == nameProduct.ToLower())
             {
@@ -165,9 +165,9 @@ class Player : Human
     {
         Console.Clear();
 
-        if (_Products.Count > 0)
+        if (Products.Count > 0)
         {
-            foreach (var product in _Products)
+            foreach (var product in Products)
             {
                 product.ShowInfo();
             }
@@ -181,7 +181,7 @@ class Player : Human
     public void TakeProduct(Product product)
     {
         Money -= product.Price;
-        _Products.Add(product);
+        Products.Add(product);
     }
 
     public void ShowInfo()
@@ -200,7 +200,7 @@ class Player : Human
 
 abstract class Human
 {
-    protected List<Product> _Products = new List<Product>();
+    protected List<Product> Products = new List<Product>();
     public string Name { get; protected set; }
     public int Money { get; protected set; }
 
